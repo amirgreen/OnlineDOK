@@ -1,0 +1,55 @@
+{% extends "master.html" %}
+{% block title %}{{ Admin }}{% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block content %}
+<table class="GameTable">
+    <caption>Files</caption>
+    <tbody>
+    {% for u in users %}
+    <tr style="background-color: rgba(112, 154, 181, 0.7); border-radius: 5px;">
+        <td class="TableText">
+            <input type="checkbox" id="id_{{ u }}" name="files" value="{{ u }}" onclick="openNav()">
+        </td>
+        <td class="TableText">
+            <a class="TableLink"
+               href="#">
+                {{ u['email'] }}
+            </a>
+        </td>
+        <td class="TableText">
+            <a class="TableLink"
+               href="#">
+                {{ u['firstName'] }}
+            </a>
+        </td>
+        <td class="TableText">
+            <a class="TableLink"
+               href="#">
+                {{ u['lastName'] }}
+            </a>
+        </td>
+        <td class="TableText">
+            <a class="TableLink"
+               href="#">
+                {{ u['password'] }}
+            </a>
+        </td>
+        <td class="TableText">
+            <a class="TableLink"
+               href="#">
+                {{ u['admin'] }}
+            </a>
+        </td>
+        <td class="TableText">
+            <a class="TableLink"
+               href="#">
+                {{ u['suspended'] }}
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

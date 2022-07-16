@@ -1,0 +1,14 @@
+{% extends "master.html" %}
+{% block title %}Streaming{% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block content %}
+    <div style="margin-left: auto; margin-right: auto; text-align: center; margin-top: 100px; background-color: #ffcc99; max-width: 100%; height: auto;">
+        <h1 style="">{{ file }}</h1>
+        <video width="1080" height="720" controls>
+            <source src="{{ path }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends "master.html" %}
+{% block title %}{{ request.args.get('path') }}{% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block side %}
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebar" onclick="closeNav()">&times;</a>
+    <input class="sidebtn" type="submit" name="submit" value="Download">
+    <input class="sidebtn" type="button" value="Upload" onclick="toggleSideNav(this)">
+    <div class="dropdown-container">
+        <input type="file" class="inputfile" name="file" id="file"
+               data-multiple-caption="{count} files selected" multiple>
+        <a href="#"><label for="file">Choose a file</label></a>
+        <button class="subbtn" type="submit" name="submit" value="Upload">Submit
+            <i class="fa fa-caret-down"></i>
+        </button>
+    </div>
+    <input class="sidebtn" type="submit" name="submit" value="Copy">
+    <input class="sidebtn" type="submit" name="submit" value="Paste">
+    <input class="sidebtn" type="submit" name="submit" value="Delete">
+    <input class="sidebtn" type="button" value="New Folder" onclick="toggleSideNav(this)">
+    <div class="dropdown-container">
+        <input type="text" name="folderName" id="folderName">
+        <button class="subbtn" type="submit" name="submit" value="Create">Create
+            <i class="fa fa-caret-down"></i>
+        </button>
+    </div>
+</div>
+{% endblock %}
+{% block content %}
+<table class="GameTable">
+    <caption>Folders</caption>
+    {% for d in dirs %}
+    <tr style="background-color: rgba(112, 154, 181, 0.7); border-radius: 5px;">
+        <td class="TableText">
+            <input type="checkbox" id="id_{{ d }}" name="folders" value="{{ d }}" onclick="openNav()">
+        </td>
+        <td class="TableText"><a class="TableLink"
+                                 href="{{ url_for('drive') }}?path={{ request.args.get('path') }}/{{ d }}">
+            {{ d }}
+        </a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<table class="GameTable">
+    <caption>Files</caption>
+    <tbody>
+    {% for f in files %}
+    <tr style="background-color: rgba(112, 154, 181, 0.7); border-radius: 5px;">
+        <td class="TableText">
+            <input type="checkbox" id="id_{{ f }}" name="files" value="{{ f }}" onclick="openNav()">
+        </td>
+        <td class="TableText">
+            <a class="TableLink"
+               href="#">
+                {{ f.name }}
+            </a>
+            <!--<a class="TableLink" href="{{ url_for('stream') }}?path={{ request.args.get('path') }}/{{ f }}">-->
+                <!--<img src="{{ url_for('static', filename='Pictures/playbtn.png') }}" alt="SideBar" style="width: 15px;"-->
+                     <!--align="right"/>-->
+            <!--</a>-->
+        </td>
+        <td class="TableText">
+            <a class="TableLink"
+               href="#">
+                {{ f.size }}
+            </a>
+        </td>
+        <td class="TableText">
+            <!--<form method=post enctype=multipart/form-data-->
+            <!--action="{{ url_for('download_file') }}?filename={{ f }}">-->
+            <!--<input type="submit" name="action" value="Download">-->
+            <!--</form>-->
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

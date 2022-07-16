@@ -1,0 +1,58 @@
+{% extends "master.html" %}
+{% block title %}{{ request.args.get('path') }}{% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block side %}
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebar" onclick="closeNav()">&times;</a>
+    <input class="sidebtn" type="submit" name="submit" value="Delete">
+    <input class="sidebtn" type="submit" name="submit" value="Make Admin">
+    <input class="sidebtn" type="button" value="New User" onclick="toggleSideNav(this)">
+    <div class="dropdown-container">
+        <input type="email" name="userEmail" id="userEmail" placeholder="Email">
+        <input type="text" name="userFirstName" id="userFirstName" placeholder="First Name" maxlength="20">
+        <input type="text" name="userLastName" id="userLastName" placeholder="Last Name" maxlength="20">
+        <button class="subbtn" type="submit" name="submit" value="Create">Create
+            <i class="fa fa-caret-down"></i>
+        </button>
+    </div>
+</div>
+{% endblock %}
+{% block content %}
+<table class="AdminTable">
+    <caption>Users</caption>
+    <tr>
+        <th></th>
+        <th style="text-align: left;">Email</th>
+        <th style="text-align: left;">Name</th>
+        <th style="text-align: left;">Admin</th>
+    </tr>
+    {% for u in users %}
+    <tr style="background-color: rgba(112, 154, 181, 0.7); border-radius: 5px;">
+        <td class="TableText">
+            <input type="checkbox" id="id_{{ u }}" name="users" value="{{ u.email }}" onclick="openNav()">
+        </td>
+        <td class="TableText"><a class="TableLink"
+                                 href="#">
+            {{ u.email }}
+        </a>
+        </td>
+        <td class="TableText"><a class="TableLink"
+                                 href="#">
+            {{ u.firstName }} {{ u.lastName }}
+        </a>
+        </td>
+        <td class="TableText"><a class="TableLink"
+                                 href="#">
+            {% if u.admin %}
+            Yes
+            {% else %}
+            No
+            {% endif %}
+        </a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

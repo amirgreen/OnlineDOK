@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    {% block head %}
+    <title>{% block title %}{% endblock %}</title>
+    <link type="text/css" rel="Stylesheet" href="{{ url_for('static', filename='CSS/StyleSheet.css') }}"/>
+    <script type="text/javascript" src="{{ url_for('static', filename='JS/JScript.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='JS/jquery-3.3.1.js') }}"></script>
+    <link rel="icon" href="{{ url_for('static', filename='Pictures/nasgray.png') }}"/>
+    {% endblock %}
+</head>
+<body>
+<form method="post" enctype="multipart/form-data">
+    <div id="main">
+        <div>
+            <ul class="navigation">
+                <li>
+                    <img src="{{ url_for('static', filename='Pictures/sidebar.png') }}" alt="SideBar"
+                         onclick="changeNav()"
+                         style="height: 25px; width: auto; margin-top: 12px; margin-right: 10px; margin-left: 25px; cursor: pointer;"/>
+                </li>
+                <li>
+                    <h1 style="padding-bottom: 0; margin-top: 2.56%; margin-bottom: 0; margin-left: 4.54%; margin-right: 6.36%; font-family: 'Arvo', serif; color: white;"
+                        class="navheader">
+                        RaspDok
+                    </h1>
+                </li>
+                <li>
+                    <img src="{{ url_for('static', filename='Pictures/naswhite.png') }}" alt="icon"
+                         style="height: 25px; width: auto; margin-top: 12px; margin-right: 10px; margin-left: 25px;"/>
+                </li>
+                <li><a href="{{ url_for('storages') }}">My Drive</a></li>
+                {% if current_user.is_anonymous %}
+                <li class="right-nav"><a href="{{ url_for('login') }}">Log In</a></li>
+                {% else %}
+                    {% if current_user.admin %}
+                    <li><a href="{{ url_for('admin') }}">Admin Page</a></li>
+                    {% endif %}
+                <li><a href="{{ url_for('change') }}">Change Password</a></li>
+                <li class="right-nav"><a href="{{ url_for('logout') }}">Log Out</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        {% block side %}
+
+        {% endblock %}
+        <div id="content" style="margin-top: 100px;">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert" id="{{ category }}">
+                <span class="closebtn" onclick="closeAlert(this)">&times;</span>
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            {% block content%}
+            {% endblock %}
+        </div>
+    </div>
+</form>
+</body>
+</html>

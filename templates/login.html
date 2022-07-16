@@ -1,0 +1,37 @@
+{% extends "master.html" %}
+{% block title %}Log In{% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block content %}
+<form id="login" runat="server" action="{{ url_for('login') }}" method="post">
+
+    <div id="logInB">
+        <div>
+            <div style="font-family: 'Montserrat', sans-serif;">
+                <table>
+                    <tr>
+                        <td>
+                            Email:
+                        </td>
+                        <td>
+                            <input runat="server" type="email" id="email" name="email" required/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Password:
+                        </td>
+                        <td>
+                            <input type="password" id="password" name="password" runat="server" required/>
+                        </td>
+                    </tr>
+                </table>
+                <input type="submit" value="Log In" runat="server" onserverclick="logIn" align="middle"/>
+
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
+</html>

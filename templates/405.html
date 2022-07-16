@@ -1,0 +1,12 @@
+{% extends "master.html" %}
+{% block title %}404 Not Found{% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block content %}
+    <div style="margin-left: auto; margin-right: auto; text-align: center; margin-top: 100px; background-color: #ffcc99; max-width: 100%; height: auto;">
+        <h1 style="">Error 405</h1>
+        <h2> {{ error }} </h2>
+        <img src="{{ url_for('static', filename='Pictures/500.png') }}" style="margin-bottom: 3%; max-width: 70%; height: auto;">
+    </div>
+{% endblock %}

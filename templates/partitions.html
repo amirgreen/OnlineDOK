@@ -1,0 +1,36 @@
+{% extends "master.html" %}
+{% block title %}Storage{% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block content %}
+
+<table class="GameTable">
+
+    <tbody>
+    <tr>
+        <th style="text-align: left;">Partition</th>
+        <th style="text-align: left;">File System</th>
+        <th style="text-align: left;">Size</th>
+    </tr>
+    {% set count = 0 %}
+    {% for p in partitions %}
+    <tr style="background-color: rgba(112, 154, 181, 0.7); border-radius: 5px;">
+        <td class="TableText"><a class="TableLink" href="{{ url_for('drive') }}?path={{ p.path }}">
+            Partition {{ count }}
+        </a>
+        </td>
+        <td class="TableText"><a class="TableLink" href="{{ url_for('drive') }}?path={{ p.path }}">
+            {{ p.fs }}
+        </a>
+        </td>
+        <td class="TableText"><a class="TableLink" href="{{ url_for('drive') }}?path={{ p.path }}">
+            {{ p.size }}
+        </a>
+        </td>
+    </tr>
+    {% set count = count + 1 %}
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

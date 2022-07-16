@@ -1,0 +1,56 @@
+{% extends "master.html" %}
+{% block title %}Storage{% endblock %}
+{% block head %}
+{{ super() }}
+<script type="text/javascript" src="{{ url_for('static', filename='JS/file.js') }}"></script>
+{% endblock %}
+{% block content %}
+
+<table class="GameTable" id="Tstorages">
+
+    <thead>
+        <tr>
+            <th></th>
+            <th style="text-align: left;">Name</th>
+            <th style="text-align: left;">Size</th>
+            <th style="text-align: left;">Label</th>
+        </tr>
+    </thead>
+    <tbody id="s_rows">
+    {% set count = 0 %}
+    {% for dok in files %}
+    {% if dok.partitions == [] %}
+    {% set href = url_for('partitions') %}
+    {% endif %}
+    <a href="{{ url_for('partitions') }}?parent={{ count }}">
+        <tr style="background-color: rgba(112, 154, 181, 0.7); border-radius: 5px; cursor: pointer;" onclick="document.location = '{{ url_for('partitions') }}?parent={{ count }}'">
+            <td>
+                {% if dok.name == 'mmcblk0' %}
+                <img src="{{ url_for('static', filename='Pictures/sd-icon.png') }}">
+                {% else %}
+                <img src="{{ url_for('static', filename='Pictures/usb-icon.png') }}">
+                {% endif %}
+            </td>
+            <td class="TableText"><a class="TableLink" href="{{ url_for('partitions') }}?parent={{ count }}">
+                {% if dok.name == 'mmcblk0' %}
+                SD Card
+                {% else %}
+                USB {{ count }}
+                {% endif %}
+            </a>
+            </td>
+            <td class="TableText"><a class="TableLink" href="{{ url_for('partitions') }}?parent={{ count }}">
+                {{ dok.size }}
+            </a>
+            </td>
+            <td class="TableText"><a class="TableLink" href="{{ url_for('partitions') }}?parent={{ count }}">
+                {{ dok.label }}
+            </a>
+            </td>
+        </tr>
+    </a>
+    {% set count = count + 1 %}
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
